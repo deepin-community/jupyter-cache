@@ -1,0 +1,14 @@
+Tests:
+ builtin-tests
+Depends:
+ python3-all,
+ python3-attr,
+ python3-pytest,
+ python3-pytest-cov,
+ python3-pytest-regressions,
+ python3-ipykernel,
+ python3-matplotlib,
+ python3-numpy,
+ python3-pandas,
+ python3-sympy,
+ python3-jupyter-cache,

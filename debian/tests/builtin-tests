@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
+set -e
+
+PYTEST_KEYWORDS="not test_basic_workflow and not test_diff_nbs and not test_execution_jupytext"
+# PYTEST_KEYWORDS+=" and not test_execution and not test_execution_timeout_config and not test_execution_timeout_metadata and not test_execution_allow_errors_config and not test_run_in_temp_false"
+# PYTEST_KEYWORDS+=" and not test_base and not test_add_nbs_to_project and not test_show_project_record and not test_project_execute and not test_project_merge and not test_project_invalidate"
+
+for python_version in $(py3versions -s); do
+    echo "Python version = ${python_version}"
+    ls -al
+    ${python_version} -m pytest tests -k "${PYTEST_KEYWORDS}"
+    rm -rf .pytest_cache
+done
+
+echo "Successful"
