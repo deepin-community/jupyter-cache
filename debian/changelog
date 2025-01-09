@@ -1,5 +1,18 @@
-template-repository (1.0-1) unstable; urgency=medium
+jupyter-cache (1.0.0-1) unstable; urgency=medium
 
-  * Initial release
+  * Upload to unstable
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Xuanteng Huang <xuanteng.huang@outlook.com>  Mon, 22 Apr 2024 10:23:45 +0800
+
+jupyter-cache (1.0.0-1~exp2) experimental; urgency=medium
+
+  * Add man page for jcache
+  * Add autopkgtest runtime tests
+
+ -- Xuanteng Huang <xuanteng.huang@outlook.com>  Mon, 15 Apr 2024 15:44:35 +0800
+
+jupyter-cache (1.0.0-1~exp1) experimental; urgency=medium
+
+  * Initial release (Closes: #1065363)
+
+ -- Xuanteng Huang <xuanteng.huang@outlook.com>  Wed, 20 Mar 2024 11:09:26 +0800

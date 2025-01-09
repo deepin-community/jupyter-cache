@@ -1,4 +1,44 @@
 #!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+export PYBUILD_NAME=jupyter-cache
 
 %:
-	dh $@
+	dh $@ --with python3 --buildsystem=pybuild
+
+
+# ckk 2024-03-12: We exclude these tests on Debian as they require the nbdime
+# package which is not available. They can be re-enabled once it has been
+# packaged
+EXCLUDE_TESTS += not test_basic_workflow and not test_diff_nbs
+# ckk 2024-03-12: likewise for jupytext
+EXCLUDE_TESTS += and not test_execution_jupytext
+
+# Set environment variables and let dh + pybuild do their automagic
+export PYBUILD_TEST_PYTEST := 1
+export PYBUILD_TEST_ARGS := -k "$(EXCLUDE_TESTS)"
+
+include /usr/share/dpkg/pkg-info.mk
+
+define create_man =
+PYTHONPATH=$(CURDIR)/debian/python3-jupyter-cache/usr/lib/python3/dist-packages \
+help2man \
+  --no-info \
+  --source=debian \
+  --help-option='--help' \
+  --version-option='--version' \
+  --no-discard-stderr \
+  --version-string=$(DEB_VERSION) \
+  --name=$(2) \
+  --section=$(3) \
+  --output debian/python3-jupyter-cache/usr/share/man/man$(3)/$(2).$(3) \
+  $(1)/$(2)
+endef
+
+override_dh_link:
+	mkdir -p debian/python3-jupyter-cache/usr/share/man/man1
+	$(call create_man,debian/python3-jupyter-cache/usr/bin,jcache,1)
+	find $(CURDIR)/debian/python3-jupyter-cache/usr/lib/python3/dist-packages -type d -name "__pycache__" -exec rm -rf {} +
+	dh_link
