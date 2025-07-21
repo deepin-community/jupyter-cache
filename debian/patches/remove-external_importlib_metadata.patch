@@ -1,0 +1,23 @@
+--- a/jupyter_cache/entry_points.py
++++ b/jupyter_cache/entry_points.py
+@@ -6,8 +6,8 @@
+ # also, from importlib_metadata changed its API in v4.0, to use the python 3.10 API
+ # however, because of https://github.com/python/importlib_metadata/issues/308
+ # we do not assume that we have this API, and instead use try/except for the new/old APIs
+-from importlib_metadata import EntryPoint
+-from importlib_metadata import entry_points as eps
++from importlib.metadata import EntryPoint
++from importlib.metadata import entry_points as eps
+ 
+ ENTRY_POINT_GROUP_READER = "jcache.readers"
+ ENTRY_POINT_GROUP_EXEC = "jcache.executors"
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -27,7 +27,6 @@
+ dependencies = [
+     "attrs",
+     "click",
+-    "importlib-metadata",
+     "nbclient>=0.2",
+     "nbformat",
+     "pyyaml",
